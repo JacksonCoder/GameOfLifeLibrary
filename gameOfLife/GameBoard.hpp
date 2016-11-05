@@ -8,17 +8,30 @@
 
 #ifndef GameBoard_hpp
 #define GameBoard_hpp
-#include <vector>
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include "ResourcePath.hpp"
+#include <GameBoard.hpp>
+#include <map>
+#include <iostream>
 using namespace std;
-class GameBoard {
-    float sizeScale;
-    
+class GameBoard{
+    float sizeScale; //for later
+    int x;
+    int y;
+    void runCellCheck();
     public:
-    vector<vector<int> > board;
-    GameBoard();
+    int** board;
+    map<pair<int,int>,int> changes;
+    GameBoard(int x, int y);
+    ~GameBoard(){
+        delete[] board;
+    }
     void update();
+    void copydoubleint(bool);
     void clearBoard();
-    void getUserInput();
+    void getUserInput(sf::Event,sf::RenderWindow&);
+    void draw(sf::RenderWindow&,sf::Font) const;
 };
 
 #endif /* GameBoard_hpp */
